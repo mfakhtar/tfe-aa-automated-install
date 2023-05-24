@@ -18,4 +18,4 @@ aws_route53_zone_name      = "fawaz-akhtar.sbx.hashidemos.io"
 min_asg_size               = 1
 max_asg_size               = 1
 desired_asg_capacity       = 1
-tfe_aa_phase2              = true
+tfe_aa_phase2              = false
