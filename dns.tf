@@ -40,3 +40,7 @@ resource "aws_route53_record" "www" {
   ttl     = "300"
   records = [aws_lb.fawaz-asg-lb.dns_name]
 }
+
+output "dns" {
+  value = aws_route53_record.www.name
+}

@@ -15,8 +15,8 @@ locals {
 }
 
 resource "aws_s3_bucket_acl" "guide-tfe-es-s3-acl" {
-  bucket = aws_s3_bucket.guide-tfe-es-s3.id
-  acl    = "private"
+  bucket     = aws_s3_bucket.guide-tfe-es-s3.id
+  acl        = "private"
   depends_on = [aws_s3_bucket_ownership_controls.example]
 }
 

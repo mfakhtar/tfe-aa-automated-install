@@ -36,3 +36,4 @@ variable "unique_name" {}
 variable "min_asg_size" {}
 variable "max_asg_size" {}
 variable "desired_asg_capacity" {}
+variable "tfe_aa_phase2" {}

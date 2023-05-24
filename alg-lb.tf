@@ -7,7 +7,7 @@ resource "aws_launch_configuration" "fawaz-tfe-es" {
     volume_size = "50"
   }
 
-  user_data = templatefile("${path.module}/user-data.sh", {
+  user_data = templatefile("${path.module}/user-data-phase1.sh", {
     bucket_name  = local.bucket_name
     region       = var.region
     tfe_password = var.tfe_password
@@ -28,7 +28,7 @@ resource "aws_launch_configuration" "fawaz-tfe-es" {
 }
 
 resource "aws_autoscaling_group" "fawaz-tfe-es-asg" {
-  launch_configuration = aws_launch_configuration.fawaz-tfe-es.name
+  launch_configuration = var.tfe_aa_phase2 ? aws_launch_configuration.fawaz-tfe-es.name : aws_launch_configuration.fawaz-tfe-aa.name
   vpc_zone_identifier  = local.public_subnets
 
   target_group_arns         = [aws_lb_target_group.asg-target-replicated.arn, aws_lb_target_group.asg-target-http.arn]
