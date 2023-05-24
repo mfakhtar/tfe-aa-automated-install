@@ -9,7 +9,7 @@ variable "az2" {
 }
 
 variable "vpc_network" {}
-variable "subnet" {}
+#variable "subnet" {}
 
 variable "db_instance_type" {}
 variable "db_user" {}
@@ -33,6 +33,6 @@ variable "tfe_release" {
 
 variable "unique_name" {}
 
-variable "min_asg_size" {} 
-variable "max_asg_size" {} 
-variable "desired_asg_size" {}
+variable "min_asg_size" {}
+variable "max_asg_size" {}
+variable "desired_asg_capacity" {}

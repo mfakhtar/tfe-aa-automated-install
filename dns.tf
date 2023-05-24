@@ -26,17 +26,17 @@ variable "aws_route53_zone_name" {
 
 
 data "aws_route53_zone" "selected" {
-#  count = var.aws_route53_zone_available ? 1 : 0
-  name  = var.aws_route53_zone_name
+  #  count = var.aws_route53_zone_available ? 1 : 0
+  name = var.aws_route53_zone_name
 }
 
 resource "aws_route53_record" "www" {
-#  count   = var.aws_route53_zone_available ? 1 : 0
-#  zone_id = data.aws_route53_zone.selected[count.index].zone_id
-#  name    = join(var.unique_name, data.aws_route53_zone.selected[count.index].name)
+  #  count   = var.aws_route53_zone_available ? 1 : 0
+  #  zone_id = data.aws_route53_zone.selected[count.index].zone_id
+  #  name    = join(var.unique_name, data.aws_route53_zone.selected[count.index].name)
   zone_id = data.aws_route53_zone.selected.zone_id
   name    = join(".", [var.unique_name, data.aws_route53_zone.selected.name])
-  type    = "A"
+  type    = "CNAME"
   ttl     = "300"
   records = [aws_lb.fawaz-asg-lb.dns_name]
 }

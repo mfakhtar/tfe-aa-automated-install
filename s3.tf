@@ -17,12 +17,13 @@ locals {
 resource "aws_s3_bucket_acl" "guide-tfe-es-s3-acl" {
   bucket = aws_s3_bucket.guide-tfe-es-s3.id
   acl    = "private"
+  depends_on = [aws_s3_bucket_ownership_controls.example]
 }
 
 resource "aws_s3_bucket_ownership_controls" "example" {
   bucket = aws_s3_bucket.guide-tfe-es-s3.id
   rule {
-    object_ownership = "BucketOwnerPreferred"
+    object_ownership = "ObjectWriter"
   }
 }
 
@@ -32,7 +33,7 @@ resource "aws_iam_instance_profile" "guide-tfe-es-inst" {
 }
 
 resource "aws_iam_policy" "bucket_policy" {
-  name        = "my-bucket-policy"
+  name        = var.unique_name
   path        = "/"
   description = "Allow "
 
@@ -49,8 +50,8 @@ resource "aws_iam_policy" "bucket_policy" {
           "s3:DeleteObject"
         ],
         "Resource" : [
-          "arn:aws:s3:::${random_pet.pet.id}/*",
-          "arn:aws:s3:::${random_pet.pet.id}"
+          "arn:aws:s3:::${var.unique_name}/*",
+          "arn:aws:s3:::${var.unique_name}"
         ]
       }
     ]
@@ -84,11 +85,10 @@ locals {
   object_source = "${path.module}/license.rli"
 }
 
-/*
+
 resource "aws_s3_object" "file_upload" {
   bucket      = aws_s3_bucket.guide-tfe-es-s3.id
   key         = "license.rli"
   source      = local.object_source
   source_hash = filemd5(local.object_source)
 }
-*/

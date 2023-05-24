@@ -35,8 +35,8 @@ resource "aws_autoscaling_group" "fawaz-tfe-es-asg" {
   health_check_type         = "ELB"
   health_check_grace_period = 3600
 
-  min_size = var.min_asg_size
-  max_size = var.max_asg_size
+  min_size         = var.min_asg_size
+  max_size         = var.max_asg_size
   desired_capacity = var.desired_asg_capacity
 
   tag {
